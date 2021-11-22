@@ -8,28 +8,19 @@ import com.timvale.sealplatform.sdk.file.SignLocalClient;
 
 public class SignHelper {
 
-    public static SignLocalClient getSignLocalClient(String AppId,String Secret,Boolean IsTest,Boolean IsHTTP){
+    public static SignLocalClient getSignLocalClient(String AppId,String Secret,String Protocol,String DomainName){
         ProjectConfig projectConfig = new ProjectConfig();
         projectConfig.setAppId(AppId);
         projectConfig.setSecret(Secret);
-
-        if(IsTest)
-            //测试环境的ip端口
-            projectConfig.setDomainName("124.70.33.109:9999");
-        else
-            //正式的域名端口
-            //projectConfig.setDomainName("zjyz.zjzwfw.gov.cn:9999");
-            //内网IP端口
-            projectConfig.setDomainName("10.249.136.160:9999");
+        projectConfig.setDomainName(DomainName);
 
         HttpConnectionConfig httpConnectionConfig=new HttpConnectionConfig();
-
-        if(IsHTTP)
-            httpConnectionConfig.setProtocol("http");
+        if(Protocol.equalsIgnoreCase("http"))
+            httpConnectionConfig.setProtocol(Protocol);
         else
             httpConnectionConfig.setProtocol("https");
-
         httpConnectionConfig.setConnectionTimeOut(3000);
+
         return ClientManageService.initClient(projectConfig,httpConnectionConfig);
     }
 

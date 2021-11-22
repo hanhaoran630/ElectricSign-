@@ -14,8 +14,8 @@ public class ElectricSign {
     SignLocalClient signLocalClient;
 
     //region 初始化
-    public ElectricSign(String AppId,String Secret,Boolean IsTest,Boolean IsHTTP){
-        signLocalClient=SignHelper.getSignLocalClient(AppId,Secret,IsTest,IsHTTP);
+    public ElectricSign(String AppId,String Secret,String Protocol,String DomainName){
+        signLocalClient=SignHelper.getSignLocalClient(AppId,Secret,Protocol,DomainName);
         posBean.setPosPage("1");
         posBean.setPosX(100);
         posBean.setPosY(100);
@@ -24,8 +24,8 @@ public class ElectricSign {
         JSONObject jsonObject=JSONObject.parseObject(jsonString);
         signLocalClient=SignHelper.getSignLocalClient(jsonObject.getString("AppId"),
                 jsonObject.getString("Secret"),
-                jsonObject.getBoolean("IsTest"),
-                jsonObject.getBoolean("IsHTTP")
+                jsonObject.getString("Protocol"),
+                jsonObject.getString("DomainName")
         );
         posBean.setPosPage("1");
         posBean.setPosX(100);
